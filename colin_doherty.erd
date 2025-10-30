@@ -1,0 +1,63 @@
+erdiagram Model
+
+notation=crowsfoot
+entity Vendor {
+   Vendor_ID: INT key
+	Vendor_Name: VARCHAR
+	Vendor_AreaCode: INT
+   Vendor_Phone: VARCHAR
+}
+
+entity Product {
+   Product_ID: INT key
+   Vendor_ID: INT
+   Product_QOH: INT
+   Product_Price: INT
+}
+
+entity Line {
+   Line_ID: INT key 
+   Invoice_ID: INT
+   Product_ID: INT
+   Line_Units: INT
+}
+
+entity Invoice {
+   Invoice_ID: INT key
+   Customer_ID: INT
+   Invoice_Date: DATE
+}
+
+entity Customer {
+   Customer_ID: INT key
+   Customer_Name: VARCHAR 
+   Customer_AreaCode: INT
+   Subscriber_ID: INT
+}
+
+entity Marketing {
+   Subscriber_ID: INT key
+   Sub_Name: VARCHAR
+   Sub_Phone: VARCHAR
+   Sub_Email: VARCHAR
+}
+
+relationship Vend_Prod {
+   Vendor[1] -> Product[1..N]
+}
+
+relationship Prod_Line {
+   Product[1] -> Line[1..N]
+}
+
+relationship Inv_Line {
+   Invoice[1] -> Line[1..N]
+}
+
+relationship Inv_Cust {
+   Invoice[1..N] -> Customer[1]
+}
+
+relationship Sub_Cust {
+   Marketing[0..1] -> Customer[0..1]
+}
